@@ -4,5 +4,5 @@
 /**
  * 
  */
-module TP6_GRUPO_11 {
+module TP_6_GRUPO11 {
 }
