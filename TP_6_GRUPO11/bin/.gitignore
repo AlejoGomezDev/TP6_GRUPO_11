@@ -1,8 +1,8 @@
-/bin/
 /dao/
 /daoImpl/
 /entidad/
+/main/
 /module-info.class
 /negocio/
-/src/
 /negocioImp/
+/presentacion/

@@ -42,18 +42,28 @@ public class PersonaDaoImpl implements PersonaDao {
 
 		return estado;
 	}
-	
+
+
+	@Override
 	public boolean delete(Persona persona) {
-		
+		// TODO Auto-generated method stub
+		return false;
 	}
-	
+
+
+	@Override
 	public Persona get(Persona persona) {
-		
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Persona> readAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	public List<Persona> readAll() {
-		
-	}
 	
 	
 }

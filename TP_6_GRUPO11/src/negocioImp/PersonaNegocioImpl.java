@@ -4,12 +4,16 @@ import java.util.List;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
+import dao.PersonaDao;
+import daoImpl.PersonaDaoImpl;
 
 public class PersonaNegocioImpl implements PersonaNegocio{
 
+	PersonaDao dao = new PersonaDaoImpl();
+	
 	@Override
 	public boolean agregarPersona(Persona persona) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
