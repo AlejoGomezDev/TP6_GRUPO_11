@@ -1,1 +1,8 @@
+/bin/
+/dao/
 /daoImpl/
+/entidad/
+/module-info.class
+/negocio/
+/src/
+/negocioImp/
