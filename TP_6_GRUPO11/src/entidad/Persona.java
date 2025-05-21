@@ -1,16 +1,16 @@
 package entidad;
 
 public class Persona {
-	private int dni;
+	private String dni;
 	private String nombre;
 	private String apellido;
 	
 	//GETTERS &  SETTERS
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
@@ -31,13 +31,17 @@ public class Persona {
 	}
 
 	//CONSTRUCTOR
-	public Persona(int dni, String nombre, String apellido) {
+	public Persona(String dni, String nombre, String apellido) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 	}
 	
+	public Persona() {
+		// TODO Auto-generated constructor stub
+	}
+
 	//TO-STRING
 	@Override
 	public String toString() {

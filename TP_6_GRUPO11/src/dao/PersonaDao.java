@@ -8,7 +8,6 @@ public interface PersonaDao {
 	
 	public boolean insert(Persona persona);
 	public boolean delete(Persona persona);
-	public Persona get(Persona persona);
 	public List<Persona> readAll();
 	
 }
