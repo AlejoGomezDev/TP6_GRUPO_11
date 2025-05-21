@@ -7,12 +7,12 @@ import entidad.Persona;
 
 public class PersonaDaoImpl implements PersonaDao {
 	
-	private static final String insert;
-	private static final String delete;
-	private static final String get;
-	private static final String readAll;
+	private static final String insert = "INSERT INTO personas(dni, nombre, apellido)";
+	private static final String delete = "DELETE FROM personas WHERE id=?";
+	private static final String get = "SELECT * FROM personas WHERE id=?";
+	private static final String readAll = "SELECT * FROM personas";
 	
-	
+		
 	public boolean insert(Persona persona) {
 		
 	}
