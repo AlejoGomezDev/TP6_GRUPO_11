@@ -11,10 +11,39 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 
 	PersonaDao dao = new PersonaDaoImpl();
 	
+	
+	private boolean personaValida(Persona persona) {
+		
+		String dni = persona.getDni().trim();
+		String nombre = persona.getNombre().trim();
+		String apellido = persona.getApellido().trim();
+		
+		if(dni.length() <= 0 || dni.length() > 20) return false;
+		if(nombre.length() <= 0 || nombre.length() > 45) return false;
+		if(apellido.length() <= 0 || apellido.length() > 45) return false;
+		
+		return true;	
+	}
+	
+	private void limpiarPersona(Persona persona) {
+		persona.setDni(persona.getDni().trim());
+		persona.setNombre(persona.getNombre().trim());
+		persona.setApellido(persona.getApellido().trim());
+	}
+	
 	@Override
 	public boolean agregarPersona(Persona persona) {
 		
-		return false;
+		boolean estado = false;
+		
+		limpiarPersona(persona);
+		
+		if( personaValida(persona) ) {
+			
+			estado = dao.insert(persona);
+		}
+		
+		return estado;
 	}
 
 	@Override
@@ -23,16 +52,11 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 		return false;
 	}
 
-	@Override
-	public Persona obtenerPersona(Persona persona) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public List<Persona> listarPersonas() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.readAll();
 	}
 
 }
