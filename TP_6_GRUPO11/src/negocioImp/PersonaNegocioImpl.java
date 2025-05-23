@@ -48,8 +48,15 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 
 	@Override
 	public boolean eliminarPersona(Persona persona) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean estado = false;
+		
+		limpiarPersona(persona);
+		
+		if( personaValida(persona) ) {
+			estado = dao.delete(persona);
+		}
+		
+		return estado;
 	}
 
 

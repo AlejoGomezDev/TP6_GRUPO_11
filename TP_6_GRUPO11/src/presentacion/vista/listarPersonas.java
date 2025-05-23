@@ -5,6 +5,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 
 public class listarPersonas extends JPanel {
 
@@ -12,6 +13,7 @@ public class listarPersonas extends JPanel {
 	
 	JMenuBar menuBar;
 	private JLabel lblNewLabel;
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -20,8 +22,11 @@ public class listarPersonas extends JPanel {
 		setLayout(null);
 		
 		lblNewLabel = new JLabel("LISTAR");
-		lblNewLabel.setBounds(171, 140, 45, 13);
+		lblNewLabel.setBounds(200, 11, 45, 13);
 		add(lblNewLabel);
+		
+		table = new JTable();
+		table.setBounds(10, 35, 430, 254);
+		add(table);
 	}
-
 }

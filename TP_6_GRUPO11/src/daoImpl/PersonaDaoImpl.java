@@ -91,13 +91,7 @@ public class PersonaDaoImpl implements PersonaDao {
 			
 			while(resultSet.next())
 			{
-				String dni = resultSet.getString("Dni");
-				String nombre = resultSet.getString("Nombre");
-				String apellido = resultSet.getString("Apellido");
-				
-				Persona newPersona = new Persona(dni,nombre,apellido);
-				
-				personas.add(newPersona);
+				personas.add(getPersona(resultSet));
 			}
 		} 
 		catch (SQLException e) 
@@ -107,6 +101,11 @@ public class PersonaDaoImpl implements PersonaDao {
 		return personas;
 	}
 	
-	
+	private Persona getPersona(ResultSet resultSet) throws SQLException{
+		String Dni = resultSet.getString("Dni");
+		String nombre = resultSet.getString("Nombre");
+		String Apel = resultSet.getString("Apellido");
+		return new Persona(Dni, nombre, Apel);
+	}
 	
 }
