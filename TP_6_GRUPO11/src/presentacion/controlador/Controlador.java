@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Action;
+import javax.swing.JOptionPane;
 
+import entidad.Persona;
 import negocio.PersonaNegocio;
 import presentacion.vista.VentanaPrincipal;
 import presentacion.vista.agregarPersonas;
@@ -57,6 +59,9 @@ public class Controlador implements ActionListener {
 		this.ventanaPrincipal.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		this.ventanaPrincipal.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a));
 		this.ventanaPrincipal.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
+		
+		// Botón agregar persona
+		this.pnlAgregarPersonas.getBtnAgregar().addActionListener(e -> agregarPersona());
 	}
 	
 	public void  EventoClickMenu_AbrirPanel_AgregarPersona(ActionEvent a)
@@ -92,6 +97,36 @@ public class Controlador implements ActionListener {
 	}
 
 	
+	public void agregarPersona() {
+		String nombre = pnlAgregarPersonas.getTxtNombre().getText().trim();
+		String apellido = pnlAgregarPersonas.getTxtApellido().getText().trim();
+		String dni = pnlAgregarPersonas.getTxtDNI().getText().trim();
+
+		if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Es necesario completar todos los campos.");
+			return;
+		}
+
+		if (!dni.matches("\\d+")) {
+			JOptionPane.showMessageDialog(null, "El DNI debe contener solo números.");
+			return;
+		}
+
+		// Verificar si el DNI ya existe
+		/*if (pNeg.existeDNI(dni)) {
+			JOptionPane.showMessageDialog(null, "Ya existe una persona con ese DNI.");
+			return;
+		}*/
+
+		Persona persona = new Persona(nombre, apellido, dni);
+		if (pNeg.agregarPersona(persona)) {
+			JOptionPane.showMessageDialog(null, "Persona agregada con éxito.");
+			pnlAgregarPersonas.limpiarCampos();
+		} else {
+			JOptionPane.showMessageDialog(null, "Error al agregar persona.");
+		}
+	}
+	
 	public void inicializar()
 	{
 		this.ventanaPrincipal.setVisible(true);;
@@ -102,4 +137,5 @@ public class Controlador implements ActionListener {
 		
 	}
 
+	
 }
