@@ -2,6 +2,8 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Action;
 import javax.swing.JOptionPane;
@@ -44,6 +46,22 @@ public class Controlador implements ActionListener {
 		this.ventanaPrincipal.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a));
 		this.ventanaPrincipal.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
 		this.ventanaPrincipal.getMntmListar().addActionListener(a->EventoClickMenu_AbrirPanel_ListarPersona(a));
+		
+		this.pnlAgregarPersonas.getTxtDNI().addKeyListener( new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				eventoKeyTyped_SoloNumeros(e);
+			}
+		});
+		this.pnlAgregarPersonas.getTxtNombre().addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				eventoKeyTyped_SoloLetras(e);
+			}
+		});
+		this.pnlAgregarPersonas.getTxtApellido().addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				eventoKeyTyped_SoloLetras(e);
+			}
+		});
 		
 		//EVENTOS VENTANA ELIMINAR
 		this.ventanaPrincipal.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
@@ -98,33 +116,28 @@ public class Controlador implements ActionListener {
 
 	
 	public void agregarPersona() {
-		String nombre = pnlAgregarPersonas.getTxtNombre().getText().trim();
-		String apellido = pnlAgregarPersonas.getTxtApellido().getText().trim();
-		String dni = pnlAgregarPersonas.getTxtDNI().getText().trim();
+		String nombre = pnlAgregarPersonas.getTxtNombre().getText();
+		String apellido = pnlAgregarPersonas.getTxtApellido().getText();
+		String dni = pnlAgregarPersonas.getTxtDNI().getText();
 
-		if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Es necesario completar todos los campos.");
-			return;
-		}
-
-		if (!dni.matches("\\d+")) {
-			JOptionPane.showMessageDialog(null, "El DNI debe contener solo números.");
-			return;
-		}
-
-		// Verificar si el DNI ya existe
-		/*if (pNeg.existeDNI(dni)) {
-			JOptionPane.showMessageDialog(null, "Ya existe una persona con ese DNI.");
-			return;
-		}*/
-
-		Persona persona = new Persona(nombre, apellido, dni);
+		Persona persona = new Persona(dni, nombre, apellido);
 		if (pNeg.agregarPersona(persona)) {
-			JOptionPane.showMessageDialog(null, "Persona agregada con éxito.");
+			
 			pnlAgregarPersonas.limpiarCampos();
-		} else {
-			JOptionPane.showMessageDialog(null, "Error al agregar persona.");
 		}
+	}
+	
+	public void eventoKeyTyped_SoloNumeros(KeyEvent e) {
+		char teclaPresionada = e.getKeyChar();
+		if(!Character.isDigit(teclaPresionada)) {
+			e.consume();
+		}
+	}
+	public void eventoKeyTyped_SoloLetras(KeyEvent e) {
+			char c = e.getKeyChar();
+			if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+				e.consume();
+			}
 	}
 	
 	public void inicializar()

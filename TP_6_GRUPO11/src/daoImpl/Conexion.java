@@ -7,7 +7,7 @@ public class Conexion {
 
 	public static Conexion instancia;
 	private Connection connection;
-	private String db = "jdbc:mysql://localhost:3306/dbPersonas";
+	private String db = "jdbc:mysql://127.0.0.1/bdpersonas";
 	private String user = "root";
 	private String pass = "root";
 	

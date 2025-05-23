@@ -8,7 +8,5 @@ public interface PersonaNegocio {
     public boolean agregarPersona(Persona persona);
     public boolean eliminarPersona(Persona persona);
     public List<Persona> listarPersonas();
-    /*public boolean existePersonaPorDNI(String dni) {
-    	return personaDao.obtenerPorDNI(dni) != null;
-    }*/
+    public boolean existePersona(String dni);
 }

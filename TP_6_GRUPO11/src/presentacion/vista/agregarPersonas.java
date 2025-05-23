@@ -34,27 +34,11 @@ public class agregarPersonas extends JPanel {
 		txtNombre.setBounds(171, 55, 120, 19);
 		add(txtNombre);
 		txtNombre.setColumns(10);
-		txtNombre.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
-					e.consume();
-				}
-			}
-		});
 
 		txtApellido = new JTextField();
 		txtApellido.setBounds(171, 124, 120, 19);
 		add(txtApellido);
 		txtApellido.setColumns(10);
-		txtApellido.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
-					e.consume();
-				}
-			}
-		});
 
 		JLabel lblDNI = new JLabel("DNI");
 		lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -65,14 +49,7 @@ public class agregarPersonas extends JPanel {
 		txtDNI.setBounds(171, 189, 120, 19);
 		add(txtDNI);
 		txtDNI.setColumns(10);
-		txtDNI.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (!Character.isDigit(c)) {
-					e.consume();
-				}
-			}
-		});
+		
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 14));
