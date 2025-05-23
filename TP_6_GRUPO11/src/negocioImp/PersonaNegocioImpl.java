@@ -44,7 +44,6 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 			
 		    	if(!dao.existe(persona)) {
 			    	estado = dao.insert(persona);
-				
 		    	}else {
 		    		JOptionPane.showMessageDialog(null, "Ya existe un registro con ese DNI", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		    	}
@@ -52,7 +51,9 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 		}else {
 			 JOptionPane.showMessageDialog(null, "Es necesario completar todos los campos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
-		
+		if(estado == true) {
+			JOptionPane.showMessageDialog(null, "La persona ha sido agregada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+		}
 		return estado;
 	}
     public boolean VerificarCampos(Persona persona) {

@@ -4,12 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.Action;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
+import negocioImp.PersonaNegocioImpl;
 import presentacion.vista.VentanaPrincipal;
 import presentacion.vista.agregarPersonas;
 import presentacion.vista.eliminarPersonas;
@@ -24,12 +28,14 @@ public class Controlador implements ActionListener {
 	private modificarPersonas pnlModificarPersonas;
 	private listarPersonas pnlListarPersonas;
 	private PersonaNegocio pNeg;
+	private DefaultListModel<Persona> modeloPersonas;
 	
 	
 	public Controlador(VentanaPrincipal vista, PersonaNegocio pNeg)
 	{
 		this.ventanaPrincipal = vista;
 		this.pNeg = pNeg;
+		this.modeloPersonas = new DefaultListModel<Persona>();
 		
 		this.pnlAgregarPersonas = new agregarPersonas();
 		this.pnlModificarPersonas = new modificarPersonas();
@@ -138,6 +144,15 @@ public class Controlador implements ActionListener {
 			if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
 				e.consume();
 			}
+	}
+	
+	public DefaultListModel<Persona> cargarDatosEnModelo(){
+		modeloPersonas.clear();
+		List<Persona> personas = pNeg.listarPersonas();
+		for(Persona p : personas) {
+			modeloPersonas.addElement(p);;
+		}
+		return modeloPersonas;
 	}
 	
 	public void inicializar()
