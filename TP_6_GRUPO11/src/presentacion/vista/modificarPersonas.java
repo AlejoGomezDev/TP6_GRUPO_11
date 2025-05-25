@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
+
+import entidad.Persona;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Font;
 
@@ -20,19 +24,22 @@ public class modificarPersonas extends JPanel {
 	private JTextField txtApellido;
 	private JTextField txtDNI;
 	private JButton btnModificar;
+	private JList<Persona> listPersona;
+
 
 	/**
 	 * Create the panel.
 	 */
-	public modificarPersonas() {
+	public modificarPersonas(DefaultListModel<Persona> modelo) {
 		setLayout(null);
+		
 		
 		lblSeleccione = new JLabel("Seleccione la persona que desea modificar");
 		lblSeleccione.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblSeleccione.setBounds(58, 32, 300, 13);
 		add(lblSeleccione);
 		
-		JList listPersona = new JList();
+		listPersona = new JList<Persona>(modelo);
 		listPersona.setBounds(58, 55, 300, 160);
 		add(listPersona);
 		
@@ -56,4 +63,44 @@ public class modificarPersonas extends JPanel {
 		btnModificar.setBounds(355, 254, 85, 21);
 		add(btnModificar);
 	}
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+	
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+	
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+	
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+	
+	public JTextField getTxtDNI() {
+		return txtDNI;
+	}
+	
+	public void setTxtDNI(JTextField txtDNI) {
+		this.txtDNI = txtDNI;
+	}
+	
+	public JButton getBtnModificar() {
+		return btnModificar;
+	}
+	
+	public void setBtnModificar(JButton btnModificar) {
+		this.btnModificar = btnModificar;
+	}
+	
+	public JList<Persona> getListPersona() {
+		return listPersona;
+	}
+	
+	public void setListPersona(JList<Persona> listPersona) {
+		this.listPersona = listPersona;
+	}
+	
 }

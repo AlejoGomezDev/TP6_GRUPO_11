@@ -37,21 +37,20 @@ public class Controlador implements ActionListener {
 		this.pNeg = pNeg;
 		this.modeloPersonas = new DefaultListModel<Persona>();
 		
+		cargarDatosEnModelo();
 		this.pnlAgregarPersonas = new agregarPersonas();
-		this.pnlModificarPersonas = new modificarPersonas();
+		this.pnlModificarPersonas = new modificarPersonas(this.modeloPersonas);
 		this.pnlListarPersonas = new listarPersonas();
 		this.pnlEliminarPersonas = new eliminarPersonas();
-		
 		//EVENTOS VENTANA PRINCIPAL
 		this.ventanaPrincipal.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		this.ventanaPrincipal.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a));
 		this.ventanaPrincipal.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
 		this.ventanaPrincipal.getMntmListar().addActionListener(a->EventoClickMenu_AbrirPanel_ListarPersona(a));
 		
+		
 		//EVENTOS VENTANA AGREGAR
-		this.ventanaPrincipal.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a));
-		this.ventanaPrincipal.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
-		this.ventanaPrincipal.getMntmListar().addActionListener(a->EventoClickMenu_AbrirPanel_ListarPersona(a));
+		
 		
 		this.pnlAgregarPersonas.getTxtDNI().addKeyListener( new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -68,26 +67,33 @@ public class Controlador implements ActionListener {
 				eventoKeyTyped_SoloLetras(e);
 			}
 		});
+		this.pnlAgregarPersonas.getBtnAgregar().addActionListener(e -> agregarPersona());
 		
 		//EVENTOS VENTANA ELIMINAR
-		this.ventanaPrincipal.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
-		this.ventanaPrincipal.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
-		this.ventanaPrincipal.getMntmListar().addActionListener(a->EventoClickMenu_AbrirPanel_ListarPersona(a));
+		
 		
 		//EVENTOS VENTANA MODIFICAR
-		this.ventanaPrincipal.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
-		this.ventanaPrincipal.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a));
-		this.ventanaPrincipal.getMntmListar().addActionListener(a->EventoClickMenu_AbrirPanel_ListarPersona(a));
+		this.pnlModificarPersonas.getListPersona().addListSelectionListener(e->{
+	        if (!e.getValueIsAdjusting()) {
+	            cargarTxtPanelAgregar_ConPersonaSeleccionada();
+	        }
+	    });
 		
 		//EVENTOS VENTANA LISTAR
-		this.ventanaPrincipal.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
-		this.ventanaPrincipal.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a));
-		this.ventanaPrincipal.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
-		
-		// Botón agregar persona
-		this.pnlAgregarPersonas.getBtnAgregar().addActionListener(e -> agregarPersona());
-	}
 	
+		
+		// Botón agrega persona
+	}
+	 public void cargarTxtPanelAgregar_ConPersonaSeleccionada(){
+		    Persona seleccionada = this.pnlModificarPersonas.getListPersona().getSelectedValue();
+		    if(seleccionada != null) {
+		    	
+		    	this.pnlModificarPersonas.getTxtDNI().setText(seleccionada.getDni());
+		    	this.pnlModificarPersonas.getTxtApellido().setText(seleccionada.getApellido());
+		    	this.pnlModificarPersonas.getTxtNombre().setText(seleccionada.getNombre());
+		    	
+		    }
+			}
 	public void  EventoClickMenu_AbrirPanel_AgregarPersona(ActionEvent a)
 	{		
 		ventanaPrincipal.getContentPane().removeAll();
@@ -131,6 +137,7 @@ public class Controlador implements ActionListener {
 			
 			pnlAgregarPersonas.limpiarCampos();
 		}
+		cargarDatosEnModelo();
 	}
 	
 	public void eventoKeyTyped_SoloNumeros(KeyEvent e) {
