@@ -165,7 +165,7 @@ public class Controlador implements ActionListener {
 		Persona persona = new Persona(dni, nombre, apellido);
 		if (pNeg.actualizarPersona(persona)) {
 			
-			//pnlModificarPersonas.limpiarCampos();
+			pnlModificarPersonas.limpiarCampos();
 		}
 		cargarDatosEnModelo();
 	}
