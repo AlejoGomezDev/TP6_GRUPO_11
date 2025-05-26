@@ -45,6 +45,6 @@ public class Persona {
 	//TO-STRING
 	@Override
 	public String toString() {
-		return "Persona [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + "]";
+		return "DNI: " + dni + ", Nombre: " + nombre + ", Apellido: " + apellido + ".";
 	}
 }

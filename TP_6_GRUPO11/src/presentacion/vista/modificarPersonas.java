@@ -54,6 +54,7 @@ public class modificarPersonas extends JPanel {
 		txtApellido.setColumns(10);
 		
 		txtDNI = new JTextField();
+		txtDNI.setEditable(false);
 		txtDNI.setBounds(248, 255, 96, 19);
 		add(txtDNI);
 		txtDNI.setColumns(10);
@@ -103,4 +104,9 @@ public class modificarPersonas extends JPanel {
 		this.listPersona = listPersona;
 	}
 	
+	public void limpiarCampos() {
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtDNI.setText("");
+	}
 }

@@ -9,4 +9,5 @@ public interface PersonaNegocio {
     public boolean eliminarPersona(Persona persona);
     public List<Persona> listarPersonas();
     public boolean existePersona(String dni);
+    public boolean actualizarPersona (Persona persona);
 }

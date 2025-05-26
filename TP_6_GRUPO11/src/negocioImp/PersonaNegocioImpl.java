@@ -88,4 +88,22 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 		return dao.readAll();
 	}
 
+	@Override
+	public boolean actualizarPersona(Persona persona) {
+		boolean estado = false;
+		
+		limpiarPersona(persona);
+		
+		if(VerificarCampos(persona)) {
+			estado = dao.update(persona);
+			
+		}else {
+			 JOptionPane.showMessageDialog(null, "Es necesario completar todos los campos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+		}
+		if(estado == true) {
+			JOptionPane.showMessageDialog(null, "La persona ha sido modificada exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+		}
+		return estado;
+	}
+
 }

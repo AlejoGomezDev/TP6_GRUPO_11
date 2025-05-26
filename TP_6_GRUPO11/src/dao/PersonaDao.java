@@ -10,5 +10,5 @@ public interface PersonaDao {
 	public boolean delete(Persona persona);
 	public List<Persona> readAll();
 	public boolean existe(Persona persona);
-	
+	public boolean update(Persona persona);
 }

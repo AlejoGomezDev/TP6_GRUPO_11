@@ -8,8 +8,10 @@ import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import javax.swing.table.DefaultTableModel;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
@@ -29,6 +31,8 @@ public class Controlador implements ActionListener {
 	private listarPersonas pnlListarPersonas;
 	private PersonaNegocio pNeg;
 	private DefaultListModel<Persona> modeloPersonas;
+	private DefaultTableModel tablaPersonas;
+	private JList<Persona> listaEliminar;
 	
 	
 	public Controlador(VentanaPrincipal vista, PersonaNegocio pNeg)
@@ -38,10 +42,11 @@ public class Controlador implements ActionListener {
 		this.modeloPersonas = new DefaultListModel<Persona>();
 		
 		cargarDatosEnModelo();
+		cargarDatosEnTabla();
 		this.pnlAgregarPersonas = new agregarPersonas();
 		this.pnlModificarPersonas = new modificarPersonas(this.modeloPersonas);
-		this.pnlListarPersonas = new listarPersonas();
-		this.pnlEliminarPersonas = new eliminarPersonas();
+		this.pnlListarPersonas = new listarPersonas(this.tablaPersonas);
+		this.pnlEliminarPersonas = new eliminarPersonas(this.modeloPersonas);
 		//EVENTOS VENTANA PRINCIPAL
 		this.ventanaPrincipal.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		this.ventanaPrincipal.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a));
@@ -70,19 +75,17 @@ public class Controlador implements ActionListener {
 		this.pnlAgregarPersonas.getBtnAgregar().addActionListener(e -> agregarPersona());
 		
 		//EVENTOS VENTANA ELIMINAR
-		
+		this.pnlEliminarPersonas.getBtnEliminar().addActionListener(e -> eliminarPersona());
 		
 		//EVENTOS VENTANA MODIFICAR
+		this.pnlModificarPersonas.getBtnModificar().addActionListener(e -> actualizarPersona());
 		this.pnlModificarPersonas.getListPersona().addListSelectionListener(e->{
 	        if (!e.getValueIsAdjusting()) {
 	            cargarTxtPanelAgregar_ConPersonaSeleccionada();
 	        }
 	    });
 		
-		//EVENTOS VENTANA LISTAR
-	
-		
-		// Botón agrega persona
+		// Botón agregar persona
 	}
 	 public void cargarTxtPanelAgregar_ConPersonaSeleccionada(){
 		    Persona seleccionada = this.pnlModificarPersonas.getListPersona().getSelectedValue();
@@ -124,7 +127,7 @@ public class Controlador implements ActionListener {
 		ventanaPrincipal.getContentPane().add(pnlListarPersonas);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
-	}
+		}
 
 	
 	public void agregarPersona() {
@@ -136,6 +139,33 @@ public class Controlador implements ActionListener {
 		if (pNeg.agregarPersona(persona)) {
 			
 			pnlAgregarPersonas.limpiarCampos();
+		}
+		cargarDatosEnModelo();
+	}
+	
+	public void eliminarPersona(){
+	    listaEliminar = this.pnlEliminarPersonas.getListPersona();
+	    Persona seleccionada = listaEliminar.getSelectedValue();
+		String nombre = seleccionada.getNombre();
+		String apellido = seleccionada.getApellido();
+		String dni = seleccionada.getDni();
+		
+		Persona persona = new Persona(dni, nombre, apellido);
+		if (pNeg.eliminarPersona(persona)) {
+			JOptionPane.showMessageDialog(null, "Persona eliminada correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+		}
+		cargarDatosEnModelo();
+	}
+	
+	public void actualizarPersona(){
+		String nombre = pnlModificarPersonas.getTxtNombre().getText();
+		String apellido = pnlModificarPersonas.getTxtApellido().getText();
+		String dni = pnlModificarPersonas.getTxtDNI().getText();
+		
+		Persona persona = new Persona(dni, nombre, apellido);
+		if (pNeg.actualizarPersona(persona)) {
+			
+			//pnlModificarPersonas.limpiarCampos();
 		}
 		cargarDatosEnModelo();
 	}
@@ -160,6 +190,18 @@ public class Controlador implements ActionListener {
 			modeloPersonas.addElement(p);;
 		}
 		return modeloPersonas;
+	}
+	
+	public DefaultTableModel cargarDatosEnTabla(){
+		String[] columnas = {"Nombre", "Apellido", "DNI"};
+	    tablaPersonas = new DefaultTableModel(columnas, 0);
+
+	    List<Persona> personas = pNeg.listarPersonas();
+	    for (Persona p : personas) {
+	        Object[] fila = { p.getNombre(), p.getApellido(), p.getDni() };
+	        tablaPersonas.addRow(fila);
+	    }
+		return tablaPersonas;
 	}
 	
 	public void inicializar()

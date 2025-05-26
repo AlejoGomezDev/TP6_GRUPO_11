@@ -16,6 +16,7 @@ public class PersonaDaoImpl implements PersonaDao {
 	private static final String delete = "DELETE FROM Personas WHERE Dni=?";
 	private static final String readAll = "SELECT * FROM Personas";
 	private static final String select = "SELECT * FROM Personas  WHERE Dni=?";
+	private static final String update = "UPDATE Personas SET Apellido = ?, Nombre = ? WHERE Dni=?";
 	
 	@Override	
 	public boolean insert(Persona persona) {
@@ -123,6 +124,35 @@ public class PersonaDaoImpl implements PersonaDao {
 			e.printStackTrace();
 		}
 		return existe;
+	}
+
+	@Override
+	public boolean update(Persona persona) {
+		boolean estado = false;
+		
+	    PreparedStatement stmt = null;
+	    Connection conexion = Conexion.getConexion().getSQLConnection();
+
+	    try {
+	        stmt = conexion.prepareStatement(update);
+	        stmt.setString(1, persona.getApellido());
+	        stmt.setString(2, persona.getNombre());
+	        stmt.setString(3, persona.getDni());
+	        if (stmt.executeUpdate() > 0) {
+	            estado = true;
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (stmt != null) stmt.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+		
+		return estado;
 	}
 	
 }
